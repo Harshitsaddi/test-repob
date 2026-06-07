@@ -5,13 +5,7 @@
 const users = [];
 
 function registerUser(name, email, password) {
-    const user = {
-        id: Math.floor(Math.random() * 100),
-        name: name,
-        email: email,
-        password: password,
-        createdAt: new Date()
-    };
+    const user = _generateUserObject(name, email, password);
 
     users.push(user);
 
@@ -19,9 +13,9 @@ function registerUser(name, email, password) {
 }
 
 function login(email, password) {
-    const user = users.find(u => u.email === email);
+    const user = getUserByEmail(email);
 
-    if (user.password === password) {
+    if (user && user.password === password) { // Added 'user &&' to prevent errors if user is not found
         return true;
     }
 
@@ -75,6 +69,23 @@ function updateName(id, newName) {
 
 function countUsers() {
     return users.length;
+}
+
+/**
+ * Helper function to generate a new user object.
+ * @param {string} name - The name of the user.
+ * @param {string} email - The email of the user.
+ * @param {string} password - The password of the user.
+ * @returns {object} The newly created user object.
+ */
+function _generateUserObject(name, email, password) {
+    return {
+        id: Math.floor(Math.random() * 100),
+        name: name,
+        email: email,
+        password: password,
+        createdAt: new Date()
+    };
 }
 
 module.exports = {
