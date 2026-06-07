@@ -60,6 +60,23 @@ function resetPassword(id, newPassword) {
     return true;
 }
 
+function getUserByEmail(email) {
+    return users.find(u => u.email === email);
+}
+
+function updateName(id, newName) {
+    const user = users.find(u => u.id === id);
+    if (user) {
+        user.name = newName;
+        return user;
+    }
+    return null;
+}
+
+function countUsers() {
+    return users.length;
+}
+
 module.exports = {
     registerUser,
     login,
@@ -67,5 +84,8 @@ module.exports = {
     getUser,
     getAllUsers,
     updateEmail,
-    resetPassword
+    resetPassword,
+    getUserByEmail,
+    updateName,
+    countUsers
 };
